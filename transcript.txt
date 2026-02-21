@@ -1,0 +1,117 @@
+
+
+37 test
+amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ cat test/37.snek
+st/37.run
+cat test/37.s
+./test/37.run37amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ make test/37.run
+cargo run -- test/37.snek test/37.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.10s
+     Running `target/debug/adder test/37.snek test/37.s`
+nasm -f elf64 test/37.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/37.run
+amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ cat test/37.s
+
+section .text
+global our_code_starts_here
+our_code_starts_here:
+    mov rax, 37
+    ret
+amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ ./test/37.run
+37
+
+
+ADD test
+amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ cat test/add.snek
+amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ make test/add.run
+cargo run -- test/add.snek test/add.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.28s
+     Running `target/debug/adder test/add.snek test/add.s`
+nasm -f elf64 test/add.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/add.run
+amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ cat test/add.s
+
+section .text
+global our_code_starts_here
+our_code_starts_here:
+    mov rax, 5
+  add rax, 1
+  add rax, 1
+    ret
+amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ ./test/add.run
+7
+amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$
+
+COMPLEX TEST
+amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ cat test/complex.snek
+ke test/complex.run
+cat test/complex.s
+./test/complex.run(sub1 (sub1 (add1 73)))amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ make test/complex.run
+cargo run -- test/complex.snek test/complex.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.10s
+     Running `target/debug/adder test/complex.snek test/complex.s`
+nasm -f elf64 test/complex.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/complex.run
+amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ cat test/complex.s
+section .text
+global our_code_starts_here
+our_code_starts_here:
+    mov rax, 73
+  add rax, 1
+  sub rax, 1
+  sub rax, 1
+amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ ./test/complex.run
+72
+amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$
+
+
+NEGATE
+amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ cat test/negate.snek
+e test/negate.run
+cat test/negate.s
+./test/negate.run(negate (add1 3))amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ make test/negate.run
+cargo run -- test/negate.snek test/negate.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.12s
+     Running `target/debug/adder test/negate.snek test/negate.s`
+nasm -f elf64 test/negate.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/negate.run
+amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ cat test/negate.s
+
+section .text
+global our_code_starts_here
+our_code_starts_here:
+    mov rax, 3
+  add rax, 1
+  neg rax
+    ret
+amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ ./test/negate.run
+-4
+
+NESTED_OPS test
+amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ cat test/nested_ops.snek
+est/nested_ops.run
+cat test/nested_ops.s
+./test/nested_ops.run(add1 (sub1 (negate (add1 9))))amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ make test/nested_ops.run
+cargo run -- test/nested_ops.snek test/nested_ops.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.14s
+     Running `target/debug/adder test/nested_ops.snek test/nested_ops.s`
+nasm -f elf64 test/nested_ops.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/nested_ops.run
+amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ cat test/nested_ops.s
+
+section .text
+global our_code_starts_here
+our_code_starts_here:
+    mov rax, 9
+  add rax, 1
+  neg rax
+  sub rax, 1
+  add rax, 1
+    ret
+amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ ./test/nested_ops.run
+-10
