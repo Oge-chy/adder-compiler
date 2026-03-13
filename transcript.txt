@@ -115,3 +115,221 @@ our_code_starts_here:
     ret
 amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ ./test/nested_ops.run
 -10
+
+
+
+
+NEW TESTTTTT
+amand@DESKTOP-TDDD697:/mnt/c/Users/amand/Downloads/pl/adder$ make test
+--- Running test/37.snek ---
+make[1]: Entering directory '/mnt/c/Users/amand/Downloads/pl/adder'
+cargo run -- test/37.snek test/37.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.80s
+     Running `target/debug/adder test/37.snek test/37.s`
+nasm -f elf64 test/37.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/37.run
+make[1]: Leaving directory '/mnt/c/Users/amand/Downloads/pl/adder'
+37
+
+--- Running test/add.snek ---
+make[1]: Entering directory '/mnt/c/Users/amand/Downloads/pl/adder'
+cargo run -- test/add.snek test/add.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.54s
+     Running `target/debug/adder test/add.snek test/add.s`
+nasm -f elf64 test/add.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/add.run
+make[1]: Leaving directory '/mnt/c/Users/amand/Downloads/pl/adder'
+7
+
+--- Running test/binop.snek ---
+make[1]: Entering directory '/mnt/c/Users/amand/Downloads/pl/adder'
+cargo run -- test/binop.snek test/binop.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.53s
+     Running `target/debug/adder test/binop.snek test/binop.s`
+nasm -f elf64 test/binop.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/binop.run
+make[1]: Leaving directory '/mnt/c/Users/amand/Downloads/pl/adder'
+9
+
+--- Running test/complex.snek ---
+make[1]: Entering directory '/mnt/c/Users/amand/Downloads/pl/adder'
+cargo run -- test/complex.snek test/complex.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.45s
+     Running `target/debug/adder test/complex.snek test/complex.s`
+nasm -f elf64 test/complex.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/complex.run
+make[1]: Leaving directory '/mnt/c/Users/amand/Downloads/pl/adder'
+72
+
+--- Running test/deep_nest.snek ---
+make[1]: Entering directory '/mnt/c/Users/amand/Downloads/pl/adder'
+cargo run -- test/deep_nest.snek test/deep_nest.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.71s
+     Running `target/debug/adder test/deep_nest.snek test/deep_nest.s`
+nasm -f elf64 test/deep_nest.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/deep_nest.run
+make[1]: Leaving directory '/mnt/c/Users/amand/Downloads/pl/adder'
+6
+
+--- Running test/double_negate.snek ---
+make[1]: Entering directory '/mnt/c/Users/amand/Downloads/pl/adder'
+cargo run -- test/double_negate.snek test/double_negate.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.52s
+     Running `target/debug/adder test/double_negate.snek test/double_negate.s`
+nasm -f elf64 test/double_negate.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/double_negate.run
+make[1]: Leaving directory '/mnt/c/Users/amand/Downloads/pl/adder'
+15
+
+--- Running test/duplicate_fail.snek ---
+make[1]: Entering directory '/mnt/c/Users/amand/Downloads/pl/adder'
+cargo run -- test/duplicate_fail.snek test/duplicate_fail.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.58s
+     Running `target/debug/adder test/duplicate_fail.snek test/duplicate_fail.s`
+
+thread 'main' (1800) panicked at src/main.rs:103:41:
+Duplicate binding
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+make[1]: *** [Makefile:7: test/duplicate_fail.s] Error 101
+make[1]: Leaving directory '/mnt/c/Users/amand/Downloads/pl/adder'
+/bin/sh: 4: ./test/duplicate_fail.run: not found
+
+--- Running test/let_multi.snek ---
+make[1]: Entering directory '/mnt/c/Users/amand/Downloads/pl/adder'
+cargo run -- test/let_multi.snek test/let_multi.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.77s
+     Running `target/debug/adder test/let_multi.snek test/let_multi.s`
+nasm -f elf64 test/let_multi.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/let_multi.run
+make[1]: Leaving directory '/mnt/c/Users/amand/Downloads/pl/adder'
+11
+
+--- Running test/let_simple.snek ---
+make[1]: Entering directory '/mnt/c/Users/amand/Downloads/pl/adder'
+cargo run -- test/let_simple.snek test/let_simple.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.56s
+     Running `target/debug/adder test/let_simple.snek test/let_simple.s`
+nasm -f elf64 test/let_simple.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/let_simple.run
+make[1]: Leaving directory '/mnt/c/Users/amand/Downloads/pl/adder'
+10
+
+--- Running test/max_int.snek ---
+make[1]: Entering directory '/mnt/c/Users/amand/Downloads/pl/adder'
+cargo run -- test/max_int.snek test/max_int.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.67s
+     Running `target/debug/adder test/max_int.snek test/max_int.s`
+nasm -f elf64 test/max_int.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/max_int.run
+make[1]: Leaving directory '/mnt/c/Users/amand/Downloads/pl/adder'
+2147483647
+
+--- Running test/min_int.snek ---
+make[1]: Entering directory '/mnt/c/Users/amand/Downloads/pl/adder'
+cargo run -- test/min_int.snek test/min_int.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.56s
+     Running `target/debug/adder test/min_int.snek test/min_int.s`
+nasm -f elf64 test/min_int.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/min_int.run
+make[1]: Leaving directory '/mnt/c/Users/amand/Downloads/pl/adder'
+-2147483648
+
+--- Running test/negate.snek ---
+make[1]: Entering directory '/mnt/c/Users/amand/Downloads/pl/adder'
+cargo run -- test/negate.snek test/negate.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.56s
+     Running `target/debug/adder test/negate.snek test/negate.s`
+nasm -f elf64 test/negate.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/negate.run
+make[1]: Leaving directory '/mnt/c/Users/amand/Downloads/pl/adder'
+-4
+
+--- Running test/nested.snek ---
+make[1]: Entering directory '/mnt/c/Users/amand/Downloads/pl/adder'
+cargo run -- test/nested.snek test/nested.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.84s
+     Running `target/debug/adder test/nested.snek test/nested.s`
+nasm -f elf64 test/nested.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/nested.run
+make[1]: Leaving directory '/mnt/c/Users/amand/Downloads/pl/adder'
+25
+
+--- Running test/nested_ops.snek ---
+make[1]: Entering directory '/mnt/c/Users/amand/Downloads/pl/adder'
+cargo run -- test/nested_ops.snek test/nested_ops.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.80s
+     Running `target/debug/adder test/nested_ops.snek test/nested_ops.s`
+nasm -f elf64 test/nested_ops.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/nested_ops.run
+make[1]: Leaving directory '/mnt/c/Users/amand/Downloads/pl/adder'
+-10
+
+--- Running test/precedence.snek ---
+make[1]: Entering directory '/mnt/c/Users/amand/Downloads/pl/adder'
+cargo run -- test/precedence.snek test/precedence.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.49s
+     Running `target/debug/adder test/precedence.snek test/precedence.s`
+nasm -f elf64 test/precedence.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/precedence.run
+make[1]: Leaving directory '/mnt/c/Users/amand/Downloads/pl/adder'
+10
+
+--- Running test/shadow.snek ---
+make[1]: Entering directory '/mnt/c/Users/amand/Downloads/pl/adder'
+cargo run -- test/shadow.snek test/shadow.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.45s
+     Running `target/debug/adder test/shadow.snek test/shadow.s`
+nasm -f elf64 test/shadow.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/shadow.run
+make[1]: Leaving directory '/mnt/c/Users/amand/Downloads/pl/adder'
+15
+
+--- Running test/simple.snek ---
+make[1]: Entering directory '/mnt/c/Users/amand/Downloads/pl/adder'
+cargo run -- test/simple.snek test/simple.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.67s
+     Running `target/debug/adder test/simple.snek test/simple.s`
+nasm -f elf64 test/simple.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/simple.run
+make[1]: Leaving directory '/mnt/c/Users/amand/Downloads/pl/adder'
+42
+
+--- Running test/unbound_fail.snek ---
+make[1]: Entering directory '/mnt/c/Users/amand/Downloads/pl/adder'
+cargo run -- test/unbound_fail.snek test/unbound_fail.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.62s
+     Running `target/debug/adder test/unbound_fail.snek test/unbound_fail.s`
+
+thread 'main' (2088) panicked at src/main.rs:74:21:
+Unbound variable identifier y
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+make[1]: *** [Makefile:7: test/unbound_fail.s] Error 101
+make[1]: Leaving directory '/mnt/c/Users/amand/Downloads/pl/adder'
+/bin/sh: 4: ./test/unbound_fail.run: not found
+
+--- Running test/zero.snek ---
+make[1]: Entering directory '/mnt/c/Users/amand/Downloads/pl/adder'
+cargo run -- test/zero.snek test/zero.s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.67s
+     Running `target/debug/adder test/zero.snek test/zero.s`
+nasm -f elf64 test/zero.s -o runtime/our_code.o
+ar rcs runtime/libour_code.a runtime/our_code.o
+rustc -L runtime/ runtime/start.rs -o test/zero.run
+make[1]: Leaving directory '/mnt/c/Users/amand/Downloads/pl/adder'
+0
