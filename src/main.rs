@@ -33,6 +33,7 @@ enum Expr {
     If(Box<Expr>, Box<Expr>, Box<Expr>),
     Loop(Box<Expr>),
     Break(Box<Expr>),
+    Block(Vec<Expr>),
 }
 
 fn parse_expr(s: &Sexp) -> Expr {
@@ -42,6 +43,7 @@ fn parse_expr(s: &Sexp) -> Expr {
         Sexp::Atom(S(name)) if name == "false" => Expr::Bool(false),
         Sexp::Atom(S(name)) if name == "input" => Expr::Input,
         Sexp::Atom(S(name)) => Expr::Var(name.clone()),
+        
 
         Sexp::List(vec) => match &vec[..] {
             [Sexp::Atom(S(op)), e] if op == "add1" => Expr::UnOp(UnOp::Add1, Box::new(parse_expr(e))),
@@ -55,6 +57,9 @@ fn parse_expr(s: &Sexp) -> Expr {
             [Sexp::Atom(S(op)), Sexp::List(binds), body] if op == "let" => {
                 let parsed_binds = binds.iter().map(parse_bind).collect();
                 Expr::Let(parsed_binds, Box::new(parse_expr(body)))
+            }
+            [Sexp::Atom(S(op)), rest @ ..] if op == "block" => {
+                Expr::Block(rest.iter().map(parse_expr).collect())
             }
             [Sexp::Atom(S(op)), Sexp::Atom(S(var)), val] if op == "set!" => Expr::Set(var.clone(), Box::new(parse_expr(val))),
             [Sexp::Atom(S(op)), l, r] => {
@@ -144,10 +149,13 @@ fn compile_to_instrs(
             format!("{l_instrs}\n{check_num}\n  mov [rsp - {offset}], rax\n{r_instrs}\n{check_num}\n{op_instrs}")
         }
         Expr::If(cond, thn, els) => {
+
+            let check_bool = "  mov rbx, rax\n  and rbx, 1\n  cmp rbx, 1\n  jne error_not_boolean"; 
             let else_l = new_label(label_counter, "if_else");
             let end_l = new_label(label_counter, "if_end");
             format!(
 "{cond_code}
+{check_bool}
   cmp rax, 1
   je {else_l}
 {then_code}
@@ -156,10 +164,12 @@ fn compile_to_instrs(
 {else_code}
 {end_l}:",
                 cond_code = compile_to_instrs(cond, si, env, label_counter, break_target),
+                check_bool = check_bool,
                 then_code = compile_to_instrs(thn, si, env, label_counter, break_target),
                 else_code = compile_to_instrs(els, si, env, label_counter, break_target),
             )
         }
+
         Expr::Loop(body) => {
             let start = new_label(label_counter, "loop_start");
             let end = new_label(label_counter, "loop_end");
@@ -197,6 +207,15 @@ fn compile_to_instrs(
             let offset = env.get(name).expect("set! to unbound variable");
             format!("{code}\n  mov [rsp - {offset}], rax")
         }
+        Expr::Block(es) => {
+            let mut instrs = String::new();
+            for e in es {
+                instrs.push_str(&compile_to_instrs(e, si, env, label_counter, break_target));
+                instrs.push('\n');
+            }
+            instrs
+        }
+
     }
 }
 
@@ -223,8 +242,17 @@ our_code_starts_here:
   ret
 
 error_not_number:
+  sub rsp, 8
   mov rdi, 1
-  call snek_error",
+  call snek_error
+  add rsp, 8
+
+error_not_boolean:   
+  sub rsp, 8
+  mov rdi, 1         
+  call snek_error
+  add rsp, 8",
+  
         result = result
     );
 
