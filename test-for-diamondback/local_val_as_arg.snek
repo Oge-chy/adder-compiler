@@ -1,0 +1,1 @@
+(fun (add1 x) (+ x 1)) (fun (f y) (let ((z 10)) (add1 z))) (f 0)

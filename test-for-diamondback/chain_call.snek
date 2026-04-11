@@ -1,0 +1,1 @@
+(fun (f x) (g x)) (fun (g x) (+ x 1)) (f 5)

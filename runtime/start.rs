@@ -15,6 +15,18 @@ pub extern "C" fn snek_error(errcode: i64) {
     std::process::exit(1);
 }
 
+#[no_mangle]
+extern "C" fn snek_print(val: i64) -> i64 {
+    if val & 1 == 0 {
+        println!("{}", val >> 1);  // Number
+    } else if val == 3 {
+        println!("true");
+    } else if val == 1 {
+        println!("false");
+    }
+    val
+}
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     let input_val = if args.len() > 1 { args[1].parse::<i64>().expect("Invalid input") << 1 } else { 1 };

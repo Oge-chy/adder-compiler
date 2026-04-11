@@ -1,0 +1,1 @@
+(fun (square x) (* x x)) (fun (sum_sq x y) (+ (square x) (square y))) (sum_sq 3 4)

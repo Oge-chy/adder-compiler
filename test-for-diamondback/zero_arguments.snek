@@ -1,0 +1,1 @@
+(fun (zero) 42) (zero)

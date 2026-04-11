@@ -1,0 +1,5 @@
+(fun (triple x) (+ x (+ x x)))
+(let ((a 5))
+  (if (> a 0)
+      (triple (triple a))
+      0))
